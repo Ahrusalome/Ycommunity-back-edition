@@ -1,5 +1,5 @@
 <?php
-abstract class DBHandler
+class DBHandler
 {
     private $name;
     private $user;
