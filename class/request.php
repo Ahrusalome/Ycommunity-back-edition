@@ -16,6 +16,7 @@ class Request extends DBHandler{
         } else {
             error_reporting(E_ALL);
             echo "there has been an issue with : " . $sql . " " . mysqli_error($db);
+			exit;
         }
         mysqli_close($db);
         $arrayData = [] ;
