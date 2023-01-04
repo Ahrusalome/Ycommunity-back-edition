@@ -1,5 +1,6 @@
 <?php
 require_once "dbSetting.php" ;
+
 class Request extends DBHandler{
     function __construct()
     {
@@ -24,7 +25,7 @@ class Request extends DBHandler{
         return $arrayData ;
     }
 
-    public function deletePost(int $postId){
+    public function deletePost(int $postId) {
         $db = $this->connect() ;
         $sql = "DELETE FROM `post` WHERE id = ?" ;
         $request = $db->prepare($sql) ;
@@ -32,5 +33,3 @@ class Request extends DBHandler{
         mysqli_close($db) ;
     }
 }
-
-?>
