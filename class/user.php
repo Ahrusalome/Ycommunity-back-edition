@@ -6,11 +6,11 @@ class User extends DBHandler
     private $userPassword;
     private $userEmail;
 
-    function __construct($name, $password, $email)
+    function __construct($name, $password, $email = null)
     {
         parent::__construct();
         $this->userName = $name;
-        $this->userPassword = password_hash($password, PASSWORD_DEFAULT);
+        $this->userPassword = $password;
         $this->userEmail = $email;
     }
 
@@ -19,15 +19,26 @@ class User extends DBHandler
         $data = array(
             "username" => $this->userName,
             "email" => $this->userEmail,
-            "password" => $this->userPassword
+            "password" => password_hash($this->userPassword, PASSWORD_DEFAULT)
         );
         if (empty($this->getFromDbByParam("user", "username", $this->userName)) && empty($this->getFromDbByParam("user", "email", $this->userEmail))) {
             $this->insert($data, "user");
-            return "User has been successfully inserted into DB";
+            return "success";
         } else {
-            return "This user or email is already taken, function has been killed";
+            return "already exist";
         }
     }
-}
 
-$user = new User("Micheleeeee", "motdepasse", "michel@gmail.com");
+    public function VerifyUserLog(): bool
+    {
+        $userData = $this->getFromDbByParam("user", "username", $this->userName);
+        if (empty($userData)) {
+            return false;
+        } else {
+            if (password_verify($this->userPassword, $userData["password"])) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
