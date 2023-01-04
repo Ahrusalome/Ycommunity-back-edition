@@ -5,5 +5,3 @@ $decode = json_decode($encoded, true);
 $postID = $decode["postID"];
 $request = new Request ;
 $request->deletePost($postID) ;
-
-?>
