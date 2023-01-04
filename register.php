@@ -9,3 +9,10 @@ $password = $decode["password"];
 $email = $decode["email"];
 $user = new User($name, $password, $email);
 $userPushLog = $user->pushUserInDB();
+if ($userPushLog == "already exist") {
+    $state = "This user already exist";
+} else {
+    $state = "Compte créer avec succès";
+}
+$logs[] = array("State" => $state);
+echo json_encode($logs);
