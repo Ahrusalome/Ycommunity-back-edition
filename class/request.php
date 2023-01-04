@@ -20,7 +20,7 @@ class Request extends DBHandler{
         mysqli_close($db);
         $arrayData = [] ;
         while ($row = mysqli_fetch_assoc($result)) {
-            array_push($arrayData,$row);
+            $arrayData[] = $row;
         }
         return $arrayData ;
     }
