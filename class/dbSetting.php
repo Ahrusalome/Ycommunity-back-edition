@@ -34,7 +34,8 @@ class DBHandler
         $columns = array_keys($data);
         $values = array_values($data);
         $sql = "INSERT INTO Ycommunity.$table (" . implode(',', $columns) . ") VALUES (\"" . implode("\", \"", $values) . "\" )";
-        if ($stmt = $con->prepare($sql)) {
+        $stmt = $con->prepare($sql);
+        if (($stmt = $con->prepare($sql))) {
             $stmt->execute();
             echo 'successfully inserted : ' . $sql;
         } else {

@@ -5,12 +5,12 @@ class Post extends DBHandler{
     private string $username;
     private int $userID;
 
-    function __construct(string $username, string $message, int $userID)
+    function __construct(string $username, string $message)
     {
         parent::__construct();
         $this->message = $message ;
         $this->username = $username ;
-        $this->userID = $userID ;
+        $this->userID = 1 ;
     }
 
     function addPostInDB(){
