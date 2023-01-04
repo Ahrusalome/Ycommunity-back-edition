@@ -6,7 +6,7 @@ class Request extends DBHandler{
         parent::__construct();
     }
 
-    public function getAllPost(){
+    public function getAllPost(): array {
         $db =$this->connect() ;
         $sql = "SELECT * FROM post" ;
         if ($request = $db->prepare($sql)) {
