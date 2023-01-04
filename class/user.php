@@ -14,8 +14,7 @@ class User extends DBHandler
         $this->userEmail = $email;
     }
 
-    public function pushUserInDB()
-    {
+    public function pushUserInDB(): string {
         $data = array(
             "username" => $this->userName,
             "email" => $this->userEmail,
