@@ -47,6 +47,23 @@ class Request extends DBHandler{
         }
         return $arrayData ;
     }
+    public function getAllCategories(){
+        $db =$this->connect() ;
+        $sql = "SELECT * FROM category" ;
+        if ($request = $db->prepare($sql)) {
+            $request->execute();
+            $result = $request->get_result();
+        } else {
+            error_reporting(E_ALL);
+            echo "there has been an issue with : " . $sql . " " . mysqli_error($db);
+        }
+        mysqli_close($db);
+        $arrayData = [] ;
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($arrayData,$row);
+        }
+        return $arrayData ;
+    }
 
     public function deletePost(int $postId){
         $db = $this->connect() ;
