@@ -6,13 +6,16 @@ class Request extends DBHandler{
         parent::__construct();
     }
 
-    public function getAllPost(){
+    public function getAllPost($categoryID){
         $db =$this->connect() ;
-        $sql = "SELECT post.id as postID,post.message,post.likes, user.username 
+        $sql = "SELECT post.id as postID,post.message,post.likes,post.categoryID, user.username 
         FROM post 
         INNER JOIN user 
-        ON user.id = post.userID;
+        ON user.id = post.userID
         " ;
+        if(!is_null($categoryID))$sql.="WHERE post.categoryID = $categoryID";
+        $f = fopen("test.txt","w");
+        fwrite($f,$sql);
         if ($request = $db->prepare($sql)) {
             $request->execute();
             $result = $request->get_result();

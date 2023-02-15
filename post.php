@@ -4,6 +4,7 @@ require_once("class/postCreate.php");
     $decode = json_decode($encoded, true);
     $content = $decode["content"];
     $userID = $decode["userID"];
-    $post = new Post($userID, $content);
+    $categoryID = $decode["categoryID"];
+    $post = new Post($userID, $content,$categoryID);
     $postPush = $post->addPostInDB();
 
