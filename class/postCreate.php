@@ -14,13 +14,19 @@ class Post extends DBHandler{
     }
 
     function addPostInDB(){
-        $arrayData = [
-            "message" => $this->message,
-            "username" => $this->username,
-            "userID" => $this->userID,
-        ] ;
-        $this->insert($arrayData,"post") or die;
-        return "added to db" ;
+        try{
+            $arrayData = [
+                "message" => $this->message,
+                "username" => $this->username,
+                "userID" => $this->userID,
+            ] ;
+            $this->insert($arrayData,"post");
+            echo("true");
+        }catch(ERROR $e){
+            echo("false");
+        }catch(Exception $e){
+            echo("false");
+        }
     }
 }
 ?>
