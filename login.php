@@ -8,7 +8,7 @@ $password = $decode["password"];
 
 $user = new User($username, $password);
 if ($user->VerifyUserLog()) {
-    echo json_encode("true");
+    echo json_encode(array("id" => $user->getFromDbByParam("user", "username", $username)["id"]));
 } else {
     echo json_encode("false");
 }

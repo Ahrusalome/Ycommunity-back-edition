@@ -7,8 +7,4 @@ $username = $decode["username"];
 $content = $decode["content"];
 $userID = $decode["userID"];
 $post = new Post($username, $content);
-$userPushLog = $post->addPostInDB();
-// $logs[] = array(
-//     "Log : " . date_format(date_create("now"), "Y-m-d h:m:s")
-// );
-// echo json_encode($logs);
+$postPush = $post->addPostInDB();
