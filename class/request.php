@@ -8,7 +8,11 @@ class Request extends DBHandler{
 
     public function getAllPost(){
         $db =$this->connect() ;
-        $sql = "SELECT * FROM post" ;
+        $sql = "SELECT post.id as postID,post.message,post.likes, user.username 
+        FROM post 
+        INNER JOIN user 
+        ON user.id = post.userID;
+        " ;
         if ($request = $db->prepare($sql)) {
             $request->execute();
             $result = $request->get_result();
