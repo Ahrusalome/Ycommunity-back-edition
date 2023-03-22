@@ -1,7 +1,6 @@
 <?php
 require_once("../class/dbSetting.php");
 $request_method = $_SERVER["REQUEST_METHOD"]; 
-echo("hii");
 switch($request_method){
     case 'GET':
         getAllCategories();

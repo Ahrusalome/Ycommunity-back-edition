@@ -1,15 +1,17 @@
 <?php
 require_once("../class/dbSetting.php");
 require_once("../class/request.php");
-require_once("class/postCreate.php");
-
+require_once("../class/postCreate.php");
+require_once("../header.php");
+$f = fopen("../test.txt");
 $request_method = $_SERVER["REQUEST_METHOD"]; 
+fwrite($file,$request_method);
 switch($request_method){
     case 'GET':
         if(!empty($_GET["id"])){
-
+            getPosts(intval($_GET["id"]));
         }else{
-            getAllPosts();
+            getPosts();
         }
     case 'POST':
         addPost();
@@ -17,9 +19,17 @@ switch($request_method){
         deletePost();
 }
 
-function getAllPosts(){
+function getPosts($id=0){
     $request = new Request ;
-    echo json_encode($request->getAllPost());
+    if($id==0){
+        if(!empty($_GET["categoryID"])){
+            echo json_encode($request->getAllPost(intval($_GET["categoryID"])));
+        }else{
+            echo json_encode($request->getAllPost());
+        }
+    }else{
+        echo json_encode($request->getPost($id));
+    }
 }
 
 function deletePost(){

@@ -1,5 +1,0 @@
-SELECT post.id as postID,post.message,post.likes,post.categoryID, user.username 
-        FROM post 
-        INNER JOIN user 
-        ON user.id = post.userID
-        WHERE post.categoryID = 4
