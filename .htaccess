@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ api.php [QSA,L]
+RewriteRule ^[^/]+/(\d+)$ post.php?id=$1
+RewriteRule ^[^/]+/(\d+)$ user.php?id=$1
