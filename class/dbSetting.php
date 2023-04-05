@@ -60,4 +60,20 @@ class DBHandler
         mysqli_close($con);
         return $result->fetch_assoc();
     }
+
+    public function getInDB(string $toSelect, string $table, string $rowToSearch = null, string|int $condition = null)
+    {
+        $db = $this->connect();
+        $query = "";
+        if (is_null($rowToSearch)) $query = "SELECT $toSelect FROM `$table`";
+        else $query = "SELECT $toSelect FROM `$table` WHERE $rowToSearch = ?";
+        $sql = $db->prepare($query);
+        if (is_null($rowToSearch)) $sql->execute();
+        else $sql->execute([$condition]);
+        $resultQuery = $sql->get_result();
+        $arrayData = [];
+        while ($row = mysqli_fetch_assoc($resultQuery)) array_push($arrayData, $row);
+        mysqli_close($db);
+        return $arrayData;
+    }
 }

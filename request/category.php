@@ -1,21 +1,19 @@
 <?php
-require_once("../class/dbSetting.php");
+require_once("class/dbSetting.php");
+$DB = new DBHandler();
+$request_error = "You've got a wrong id or research";
 $request_method = $_SERVER["REQUEST_METHOD"]; 
+$request_URI = $_SESSION["request"];
 switch($request_method){
     case 'GET':
-        getAllCategories();
-}
-
-
-function getAllCategories(){
-    try{
-        require_once("../class/request.php");
-        $request = new Request ;
-        echo json_encode($request->getAllCategories());
-    }catch(ERROR $e){
-        echo("false");
-    }catch(Exception $e){
-        echo("false");
-    }
+        if(count($request_URI)>2){
+            if(intval($request_URI[2])!=0){
+                $result = $DB->getInDB("*","category","id",$request_URI[2]);
+                if(count($result)>0)echo(json_encode($result));
+                else echo("No category found with this ID");
+            }
+        }else{
+            echo(json_encode($DB->getinDB("*","category")));
+        }
 }
 ?>
