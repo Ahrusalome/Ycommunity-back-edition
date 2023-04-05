@@ -10,13 +10,24 @@ $DB = new DBHandler();
 switch($request_method){
     case 'GET':
         if(count($request_URI)>2){
-            if(intval($request_URI[2]!=0)){
+            if(intval($request_URI[2])!=0){
                 $result = $DB->getInDB("*","post","id",$request_URI[2]);
-                if(count($result)>0)echo(json_encode($result));
-                else echo("No post with this ID found");
+                echo(json_encode($result));
+                
             }else{
-                echo($request_error);
+                switch($request_URI[2]){
+                    case 'category':
+                        if(count($request_URI)>3){
+                            if(intval($request_URI[3])!=0){
+                                $result = $DB->getInDB("*","post","categoryID",$request_URI[3]);
+                                echo(json_encode($result));
+                            }
+                        }
+                        break;
+                }
             }
+        }else{
+            echo(json_encode($DB->getInDB("*","post")));
         }
         break;
     case 'POST':
