@@ -13,6 +13,9 @@ try{
         case "category":
             require __DIR__ . '/request/category.php';
             break;
+        case "comment":
+            require __DIR__ . '/request/comment.php';
+            break;
         default:
             http_response_code(404);
             break;

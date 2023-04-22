@@ -53,6 +53,13 @@ class Request extends DBHandler{
         $request->execute([$postId]);
         mysqli_close($db) ;
     }
+    public function deleteById(string $table,int $id){
+        $db = $this->connect() ;
+        $sql = "DELETE FROM `$table` WHERE id = ?" ;
+        $request = $db->prepare($sql) ;
+        $request->execute([$postId]);
+        mysqli_close($db) ;
+    }
 
     public function getPostsCategory(){
 
