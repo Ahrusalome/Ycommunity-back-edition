@@ -76,4 +76,22 @@ class DBHandler
         mysqli_close($db);
         return $arrayData;
     }
+
+    public function getCommentsInfo(int $postID){
+        $db =$this->connect() ;
+        $sql = "SELECT comment.message, comment.id, comment.authorID, user.username 
+        FROM comment 
+        INNER JOIN user 
+        ON user.id = comment.authorID 
+        WHERE comment.postID = ?;
+        ";
+        $request = $db->prepare($sql);
+        $request->execute([$postID]);
+        $result = $request->get_result();
+        $arrayData = [] ;
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($arrayData,$row);
+        }
+        return $arrayData ;
+    }
 }
