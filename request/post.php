@@ -26,7 +26,7 @@ switch($request_method){
                 }
             }
         }else{
-            echo(json_encode($DB->getInDB("*","post")));
+            echo(json_encode($DB->getAllPosts()));
         }
         break;
     case 'POST':

@@ -94,4 +94,28 @@ class DBHandler
         }
         return $arrayData ;
     }
-}
+    public function deleteLike($userID,$postID){
+        $db = $this->connect() ;
+        $sql = "DELETE FROM `postLike` WHERE postID = $postID AND  userID = $userID" ;
+        $request = $db->prepare($sql) ;
+        $request->execute();
+        mysqli_close($db) ;
+    }
+    public function getAllPosts(){
+        $db =$this->connect();
+        $sql = "SELECT post.message, post.id,post.likes,post.userID,post.categoryID, user.username 
+        FROM post 
+        INNER JOIN user 
+        ON user.id = post.userID; 
+        ";
+        $request = $db->prepare($sql);
+        $request->execute();
+        $result = $request->get_result();
+        $arrayData = [] ;
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($arrayData,$row);
+        }
+        return $arrayData ;
+    }
+    
+}                           

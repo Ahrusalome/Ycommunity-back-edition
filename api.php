@@ -16,6 +16,9 @@ try{
         case "comment":
             require __DIR__ . '/request/comment.php';
             break;
+        case "like":
+            require __DIR__ . '/request/like.php';
+            break;
         default:
             http_response_code(404);
             break;
