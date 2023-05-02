@@ -1,5 +1,6 @@
 <?php
-require_once("class/dbSetting.php");
+try{
+    require_once("class/dbSetting.php");
 require_once("class/request.php");
 require_once("class/postCreate.php");
 require_once("header.php");
@@ -43,6 +44,31 @@ switch($request_method){
             echo(false);
         }
         break;
+    case 'PUT':
+        if(count($request_URI)>2){
+            if(intval($request_URI[2])!=0){
+
+            } else {
+                switch($request_URI[2]){
+                    case 'addLike':
+                        if(count($request_URI)>3){
+                            if(intval($request_URI[3])!=0){
+                                $DB->updateLike($request_URI[3]);
+                                echo("hello");
+                            }
+                        }
+                        break;
+                    case 'removeLike':
+                        if(count($request_URI)>3){
+                            if(intval($request_URI[3])!=0){
+                                $DB->updateLike($request_URI[3],true);
+                                echo("hello");
+                            }
+                        }
+                        break;
+                }
+            }
+        }
 }
 function deletePost(int $postID){
     $request = new Request ;
@@ -59,5 +85,11 @@ function addPost(){
     $post = new Post($userID, $content,$categoryID);
     $postPush = $post->addPostInDB();
 }
+}catch(Error $e){
+    echo $e;
+}catch(Exception $e){
+    echo $e;
+}
+
 
 ?>

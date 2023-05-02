@@ -117,5 +117,13 @@ class DBHandler
         }
         return $arrayData ;
     }
+    public function updateLike($idPost,$removeLike=false){
+        $db = $this->connect();
+        $addOrRemoveLike = "likes+1";
+        if($removeLike)$addOrRemoveLike = "likes-1";
+        $sql = $db->prepare("UPDATE `post` SET `likes` = $addOrRemoveLike WHERE id = $idPost;");
+        $sql->execute();
+        mysqli_close($db) ;
+    }
     
 }                           
