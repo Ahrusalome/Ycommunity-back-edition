@@ -31,7 +31,13 @@ switch($request_method){
         }
         break;
     case 'POST':
-        addPost();
+        $encoded = file_get_contents("php://input");
+        $decode = json_decode($encoded, true);
+        $categoryID = $decode["categoryID"];
+        $content = $decode["content"];
+        $userID = $decode["userID"];
+        $post = new Post($userID, $content,$categoryID);
+        $postPush = $post->addPostInDB();
         break;
     case 'DELETE':
         if(count($request_URI)>2){
